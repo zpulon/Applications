@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using ApiCore.Stores;
+using System.Linq;
 using TestPlugins.Models;
 
 namespace TestPlugins.Stores
@@ -6,7 +7,7 @@ namespace TestPlugins.Stores
     /// <summary>
     /// 
     /// </summary>
-    public interface IUserStores
+    public partial interface IUserStores: IRepository<OS_User>
     {
         /// <summary>
         /// 
