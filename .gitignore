@@ -1,0 +1,23 @@
+﻿################################################################################
+# 此 .gitignore 文件已由 Microsoft(R) Visual Studio 自动创建。
+################################################################################
+
+/.vs/Applications
+/ApiCore/bin/Debug/netstandard2.1
+/ApiCore/obj/Debug/netstandard2.1
+/ApiCore/obj
+/LogCore/bin/Debug/netstandard2.1
+/LogCore/obj/Debug/netstandard2.1
+/LogCore/obj
+/PluginCore/bin/Debug/netstandard2.1
+/PluginCore/obj/Debug/netstandard2.1
+/PluginCore/obj
+/SchoolServer/bin/Debug/net5.0
+/SchoolServer/obj
+/SchoolServer/Properties
+/SchoolServer/appsettings.Development.json
+/TestPlugins/bin/Debug/net5.0
+/TestPlugins/obj/Debug
+/TestPlugins/obj
+/UnitTest/bin/Debug/net5.0
+/UnitTest/obj
