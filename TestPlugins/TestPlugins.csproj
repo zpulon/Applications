@@ -11,7 +11,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="ApiCore" Version="2.0.0" />
+    <PackageReference Include="ApiCore" Version="2.0.5" />
     <PackageReference Include="AspNet.Security.OAuth.Validation" Version="2.0.0" />
     <PackageReference Include="AutoMapper" Version="10.1.1" />
     <PackageReference Include="LogCore" Version="1.0.0" />

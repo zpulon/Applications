@@ -1,6 +1,7 @@
 using ApiCore.JsonFilter;
 using ApiCore.Utils;
 using AspNet.Security.OAuth.Validation;
+using LogCore.Filters;
 using LogCore.Log;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -81,7 +82,7 @@ namespace SchoolServer
                 //options.SerializerSettings.NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore;
                 //options.SerializerSettings.Formatting = Newtonsoft.Json.Formatting.Indented;
                 //options.SerializerSettings.ContractResolver = new Newtonsoft.Json.Serialization.CamelCasePropertyNamesContractResolver();
-            }); ;
+            }); 
             services.AddCors();
 
 
@@ -200,6 +201,7 @@ namespace SchoolServer
             {
                 app.UseDeveloperExceptionPage();
             }
+            app.UseMiddleware(typeof(ExceptionHandlerMiddleWare));
             app.UseSwagger();
             app.UseSwaggerUI(options =>
             {
