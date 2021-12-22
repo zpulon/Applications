@@ -107,22 +107,48 @@ namespace TestPlugins.Controllers
         /// 列表
         /// </summary>
         /// <returns></returns>
-        [HttpGet("send")]
+        [HttpGet("start")]
         [AllowAnonymous]
-        public async Task end()
+        public async Task Send()
         {
             try
             {
                 string schedulerUrl = $"{_config["ScheduleServerUrl"]}/api/scheduler/start";
                 var requestInfo = new ScheduleSubmitRequest
                 {
-                    JobGroup = 1.ToString(),
+                    JobGroup = Guid.NewGuid().ToString(),
                     JobName = "tablename",
-                    CronStr = "",
-                    StarRunTime = DateTime.Now.AddSeconds(5),
+                    CronStr = "0 0/1 * * * ?",
+                    StarRunTime = DateTime.Now,
                     EndRunTime = null,
-                    Callback = $"{_config["AppGatewayUrl"]}/api/test/calback",
+                    Callback = $"{_config["AppGatewayUrl"]}/api/test/callback",
                     Args = new Dictionary<string, object> { {"key", 1 } },
+
+                };
+                logger.Info($"向任务调度中心添加，地址：{schedulerUrl}\r\n参数：{_jsonHelper.ToJson(requestInfo)}");
+                await _httpClient.Post<ResponseMessage>(schedulerUrl, requestInfo);
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
+        }
+        /// <summary>
+        /// 列表
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("stop")]
+        [AllowAnonymous]
+        public async Task Stop()
+        {
+            try
+            {
+                string schedulerUrl = $"{_config["ScheduleServerUrl"]}/api/scheduler/stop";
+                var requestInfo = new StopScheduleRequest
+                {
+                    JobGroup = 2.ToString(),
+                    JobName = "tablename",
+                  
 
                 };
                 logger.Info($"向任务调度中心添加，地址：{schedulerUrl}\r\n参数：{_jsonHelper.ToJson(requestInfo)}");
@@ -137,18 +163,19 @@ namespace TestPlugins.Controllers
         /// 回调
         /// </summary>
         /// <returns></returns>
-        [HttpPost("calback")]
+        [HttpPost("callback")]
         [AllowAnonymous]
-        public async Task Callback([FromBody] ScheduleExecuteRequest scheduleExecuteRequest)
+        public async Task<string> Callback([FromBody] ScheduleExecuteRequest scheduleExecuteRequest)
         {
             try
             {
                 var result = await _userManager.Get_UserListAsync();
                 logger.Info($"GetUserList:\r\n {_jsonHelper.ToJson(scheduleExecuteRequest)}");
+                return "success";
             }
             catch (Exception e)
             {
-                throw;
+                return "error";
             }
         }
 
